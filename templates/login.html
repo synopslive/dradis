@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <link href="/static/css/outdoor.css" rel="stylesheet"/>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet"/>
+</head>
+<body>
+
+<section class="login-box">
+    <p class="whats-up"><i class="icon-lock"></i> Pour accéder à Dradis,
+        merci de vous authentifier avec vos identifiants habituels utilisés
+        pour l'accès à l'administration.</p>
+
+    {% if form.errors %}
+    <p class="error"><i class="icon-warning-sign"></i> ...êtes-vous sûr de vos identifiants ? <br/>
+        <em>(ProTip™ : nos identifiants sont en minuscule, et les mots de passe sensibles à la casse !)</em></p>
+    {% endif %}
+
+    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th><label for="id_{{ form.username.html_name }}">Identifiant :</label></th>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <th><label for="id_{{ form.password.html_name }}">Mot de passe :</label></th>
+                <td>{{ form.password }}</td>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <td><input type="submit" value="Login"/>
+                    <input type="hidden" name="next" value="/"/></td>
+            </tr>
+        </table>
+    </form>
+</section>
+
+
+</body>
+</html>
