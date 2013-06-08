@@ -601,7 +601,8 @@ button::-moz-focus-inner {
 }
 
 .plelement.elisaction .handle {
-    display: none;
+    background-color: transparent;
+    border-top: none 0;
 }
 
 .plelement.elisjingle .handle {
