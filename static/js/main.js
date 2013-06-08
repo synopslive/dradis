@@ -20,19 +20,19 @@ $(document).ready(function () {
 
     var $body = $("body");
 
-    var wi = WheelIndicator();
+    var wi = new WheelIndicator();
     wi.initialize("#notanhorloge");
 
-    var sc = SydroidConnector($body.data("dradis-api-key"));
+    var sc = new SydroidConnector($body.data("dradis-api-key"));
     sc.init();
 
-    var pm = PlaylistManager();
+    var pm = new PlaylistManager(sc);
     pm.initialize("#jukebox .content");
 
-    var lm = LibraryManager();
+    var lm = new LibraryManager();
     lm.initialize(".medias .content");
 
-    var et = EffectsTable();
+    var et = new EffectsTable();
     et.initialize(".effects-table .content", sc);
 
     sc.connectUpdate(function () {

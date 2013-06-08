@@ -33,13 +33,14 @@ var SydroidConnector = function (api_key) {
             return;
         }
         $("#osdbox").show();
-        $("#modesect .bigtext").text(jolimodes[nstatus.mode]);
+        var $modesect = $("#modesect");
+        $modesect.find(".bigtext").text(jolimodes[nstatus.mode]);
         if (nstatus.mode == "live" && nstatus.timeBeforeLive)
-            $("#modesect .littletext").html('Musique reprise, en cours (<strong class="timeleftbeforelive">0:00</strong>)');
+            $modesect.find(".littletext").html('Musique reprise, en cours (<strong class="timeleftbeforelive">0:00</strong>)');
         else
-            $("#modesect .littletext").html(comments[nstatus.mode]);
-        $("#modesect").attr('class', nstatus.mode + 'mode');
-        $("#modesect img").attr('src', '/images/' + nstatus.mode + 'mode.png');
+            $modesect.find(".littletext").html(comments[nstatus.mode]);
+        $modesect.attr('class', nstatus.mode + 'mode');
+        $modesect.find("img").attr('src', '/images/' + nstatus.mode + 'mode.png');
 
         if (nstatus.mode == "live" && nstatus.timeBeforeLive) {
             $(".ctlbox").not("#ctl-intro").hide();

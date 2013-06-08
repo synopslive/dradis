@@ -978,3 +978,7 @@ strong.timeleftbeforelive {
     font-size: 9pt;
     padding-left: 10px;
 }
+
+#currentplaylist.dirt {
+    background-color: #CCCCCC;
+}
