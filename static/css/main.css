@@ -420,7 +420,7 @@ button::-moz-focus-inner {
     border-top: 1px solid white;
 }
 .plelement + .plelement.elisaction {
-    margin-top: 1px;
+    margin-top: 2px;
 }
 
 .handle:before {
@@ -577,7 +577,13 @@ button::-moz-focus-inner {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    background-color: rgba(255,255,255,0.8);
+    -moz-transition: box-shadow 0.2s;
+    transition: box-shadow 0.2s;
+}
+
+.plelement.ui-sortable-helper {
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 5px 5px rgba(0,0,0,0.3), 0 -5px 5px rgba(0,0,0,0.3);
 }
 
 .plelement .handle {
@@ -589,6 +595,10 @@ button::-moz-focus-inner {
     width: 24px;
     background: #dfdfdf none no-repeat center;
     cursor: move;
+}
+
+.plelement.ui-sortable-helper .handle {
+    border-top: 0 none;
 }
 
 .dirt .plelement .handle {
@@ -603,6 +613,10 @@ button::-moz-focus-inner {
 .plelement.elisaction .handle {
     background-color: transparent;
     border-top: none 0;
+}
+
+.plelement.elisaction .handle {
+    top: 1px;
 }
 
 .plelement.elisjingle .handle {
