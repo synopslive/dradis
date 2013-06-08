@@ -416,12 +416,33 @@ button::-moz-focus-inner {
     margin-top: 2px;
 }*/
 
-.plelement + .plelement:before {
+.plelement + .plelement .handle {
     border-top: 1px solid white;
 }
 .plelement + .plelement.elisaction {
     margin-top: 1px;
 }
+
+.handle:before {
+    content: "";
+    position: absolute;
+    background-image: url(../images/handle.png);
+    width: 20px;
+    height: 20px;
+    top: 2px;
+    left: 2px;
+    opacity: 0;
+    -moz-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+}
+.plelement:hover .handle:before {
+    opacity: 1;
+}
+
+.dirt:hover .handle:before {
+    opacity: 0;
+}
+
 
 .w-eltitle, .w-elartist, .w-elalbum,
 .w-eltaa, .w-secondline {
@@ -556,10 +577,10 @@ button::-moz-focus-inner {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
+    background-color: rgba(255,255,255,0.8);
 }
 
-.plelement:before {
-    content: "";
+.plelement .handle {
     display: block;
     position: absolute;
     top: 0;
@@ -567,28 +588,33 @@ button::-moz-focus-inner {
     height: 100%;
     width: 24px;
     background: #dfdfdf none no-repeat center;
+    cursor: move;
 }
 
-.plelement.elismusique:before {
+.dirt .plelement .handle {
+    cursor: default;
+}
+
+.plelement.elismusique .handle {
     background-color: #747986;
     background-image: url(../images/types/special-type.png);
 }
 
-.plelement.elisaction:before {
+.plelement.elisaction .handle {
     display: none;
 }
 
-.plelement.elisjingle:before {
+.plelement.elisjingle .handle {
     background-color: #338638;
     background-image: url(../images/types/jingle-type.png);
 }
 
-.plelement.elissaga-mp3:before {
+.plelement.elissaga-mp3 .handle {
     background-color: #86732a;
     background-image: url(../images/types/special-type.png);
 }
 
-.plelement.elisperm:before {
+.plelement.elisperm .handle {
     background-color: #3c8dc6;
     background-image: url(../images/types/music-type.png);
 }
@@ -977,6 +1003,10 @@ strong.timeleftbeforelive {
     line-height: 26px;
     font-size: 9pt;
     padding-left: 10px;
+}
+
+#currentplaylist {
+    -moz-transition: background-color 0.2s;
 }
 
 #currentplaylist.dirt {

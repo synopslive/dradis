@@ -86,6 +86,7 @@ var PlaylistManager = function (sc) {
 
         var finalCode = '<div class="' + cssClasses + '" data-playlist-element-id="' + stackElement.id +
                         '" data-pos="' + stackElement.position + '">' +
+            '<div class="handle"></div>' +
             (elinfos ? ('<p class="w-elinfos">' + elinfos + '</p>') : '') +
             '<p class="w-eltaa">' + mainLine + '</p>' +
             (secondLine ? ('<p class="w-secondline">' + secondLine + '</p>') : '') +
@@ -125,9 +126,7 @@ var PlaylistManager = function (sc) {
                 items : '.plelement:not(.elstisdone):not(.elstisplaying):not(.elisloaded)',
                 axis: 'y',
                 distance: 5,
-                cursorAt: {
-                    top: 50, left: 0
-                },
+                handle: '.handle',
                 start: function(event, ui){
                     $(ui.item).attr("data-dirt", "existant")
                         .attr("data-prev-pos", $(ui.item).data("pos"));

@@ -79,6 +79,7 @@ var LibraryManager = function () {
         elinfos += '<span class="ellength">' + formatLength(media.length) + '</span>';
 
         var finalCode = '<div class="' + cssClasses + '">' +
+            '<div class="handle"></div>' +
             (elinfos ? ('<p class="w-elinfos">' + elinfos + '</p>') : '') +
             '<p class="w-eltaa">' + eltaa + '</p>' +
             (secondline ? ('<p class="w-secondline">' + secondline + '</p>') : '') +
