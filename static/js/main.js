@@ -63,7 +63,12 @@ $(document).ready(function () {
     $testinput.keypress(function (event) {
         if (event.which == '13') {
             event.preventDefault();
-            sc.send($testinput.val());
+            var command = $testinput.val();
+            if(command == "debug") {
+                $("body").toggleClass("debug");
+            } else {
+                sc.send(command);
+            }
             $testinput.val("");
         }
     });

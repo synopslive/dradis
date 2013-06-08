@@ -24,8 +24,6 @@ var PlaylistManager = function (sc) {
         var actions = "";
 
         if (stackElement.status == "ready") {
-            actions += '<button data-do-cmd="move ' + stackElement.id + ' to ' + (stackElement.position - 1) + '" class="moveup" title="Monter"></button>';
-            actions += '<button data-do-cmd="move ' + stackElement.id + ' to ' + (stackElement.position + 1) + '" class="movedown" title="Descendre"></button>';
             actions += '<button data-do-cmd="remove ' + stackElement.id + ' from stack" class="removefromstack" title="Supprimer"></button>';
         }
 
@@ -66,8 +64,6 @@ var PlaylistManager = function (sc) {
                 mainLine += '<span class="elfilename">' + stackElement.media.filename + '</span>';
             }
 
-            mainLine += " <small>" + stackElement.id + " @ " + stackElement.position +  " </small>";
-
             if (stackElement.media.album)
                 secondLine += "(tiré de <em>" + stackElement.media.album + "</em>)";
             else {
@@ -78,6 +74,8 @@ var PlaylistManager = function (sc) {
 
             elinfos += '<span class="ellength">' + formatLength(stackElement.media.length) + '</span>';
         }
+
+        mainLine += " <small class=\"debuginfo\">" + stackElement.id + " @ " + stackElement.position +  " </small>";
 
         if (stackElement.status == "done")
             cssClasses += "elstisdone ";

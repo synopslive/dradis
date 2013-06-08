@@ -982,3 +982,11 @@ strong.timeleftbeforelive {
 #currentplaylist.dirt {
     background-color: #CCCCCC;
 }
+
+.debuginfo {
+    display: none;
+}
+
+.debug .debuginfo {
+    display: inline-block;
+}
