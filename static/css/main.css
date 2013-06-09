@@ -579,6 +579,7 @@ button::-moz-focus-inner {
     -webkit-box-sizing: border-box;
     -moz-transition: box-shadow 0.2s;
     transition: box-shadow 0.2s;
+    cursor: default;
 }
 
 .plelement.ui-sortable-helper {
@@ -1034,4 +1035,43 @@ strong.timeleftbeforelive {
 
 .debug .debuginfo {
     display: inline-block;
+}
+
+.circle-container {
+    fill-rule: evenodd;
+    fill: #ececec;
+    stroke: #969696;
+}
+
+.circle-container.perm {
+    fill: #6e6e6e;
+    stroke: #6e6e6e;
+}
+
+.circle-container.live {
+    fill: #592426;
+    stroke: #592426;
+}
+
+.filling-arc {
+    fill-rule: evenodd;
+    fill: transparent;
+}
+
+.magic-bowl {
+    animation-duration: 5s;
+    animation-name: magicrolling;
+    transform-origin: 19px 19px;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes magicrolling {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }

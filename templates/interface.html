@@ -21,7 +21,32 @@
     <nav id="topbar">
         <img id="logohome" src="./static/images/logoSynops.png" alt="" title="Dradis 0.81" />
         <div id="statusbox">
-            <canvas id="notanhorloge" width="44" height="44"></canvas>
+            <svg id="notanhorloge" xmlns="http://www.w3.org/2000/svg" style="width: 44px; height: 44px; margin-top: 6px;">
+                <path
+                  d="
+                    M 19, 19
+                    m -18, 0
+                    a 18,18 0 1,0 36,0
+                    a 18,18 0 1,0 -36,0
+
+                    M 19, 19
+                    m -7, 0
+                    a 7,7 0 1,0 14,0
+                    a 7,7 0 1,0 -14,0
+                    "
+                  class="circle-container"
+                />
+                <circle r="3" cx="19" cy="7" style="fill: #cccccc;" class="magic-bowl" />
+                <path
+                    d="
+                    M 19,3
+                    A 15,15 0 0,1 19,35
+                    M 19,28
+                    A 7,7 0 0,0 19,10"
+
+                    class="filling-arc"
+                />
+            </svg>
             <div id="modesect">
                 <p class="bigtext">&nbsp;</p>
 

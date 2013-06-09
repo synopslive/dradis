@@ -5,127 +5,113 @@ window.requestAnimFrame = (function () {
         window.oRequestAnimationFrame ||
         window.msRequestAnimationFrame ||
         function (/* function */ callback, /* DOMElement */ element) {
-            window.setTimeout(callback, 1000 / 30);
+            window.setTimeout(callback, 1000 / 24);
         };
 })();
 
 var WheelIndicator = function () {
-    var myOSD = null;
-    var canvas = null;
-    var size = 38;
-    var cwidth = 12;
-    var balls = 1.0;
-    var shadows = 1.0;
+    var element = null;
+    var outerSize = 16;
+    var innerSize = 9;
 
     var paint = function () {
         if (!window.currentSydroidStatus)
             return;
 
+        var $element = $(element);
+
+        var circleContainer = $element.find(".circle-container");
+        var fillingArc = $element.find(".filling-arc");
+        var magicBowl = $element.find(".magic-bowl");
+
         var currentTime = window.currentSydroidStatus.timeBeforeLive;
         var totalTime = window.currentSydroidStatus.maxTimeBeforeLive;
         var status = window.currentSydroidStatus.mode;
 
-        canvas.clearRect(0, 0, size + 4, size + 4);
-
-        var nowdate = new Date();
-        var nowsec = nowdate.getTime() / 1000.0;
-
         var angleFin = Math.PI * 2;
 
-        lingradBlack = canvas.createLinearGradient(0, 0, 0, size);
-        lingradBlack.addColorStop(0, '#222');
-        lingradBlack.addColorStop(0.6, '#444');
-        lingradBlack.addColorStop(1, '#666');
+        if (status == "permanent") {
+            magicBowl.show();
+            fillingArc.hide();
 
-        lingradRed = canvas.createLinearGradient(0, 0, 0, size);
-        lingradRed.addColorStop(0, '#400');
-        lingradRed.addColorStop(0.6, '#622');
-        lingradRed.addColorStop(1, '#944');
+            circleContainer.attr("class", "circle-container perm");
 
-        if (status == "permanent" || status == "live") {
-            canvas.globalCompositeOperation = "source-over";
+        } else if(status == "live") {
+            magicBowl.show();
+            fillingArc.hide();
 
-            // Cercle noir
-            if (status == "permanent")
-                canvas.fillStyle = lingradBlack;
-            else
-                canvas.fillStyle = lingradRed;
+            circleContainer.attr("class", "circle-container live");
 
-            canvas.shadowOffsetX = 1;
-            canvas.shadowOffsetY = 1;
-            canvas.shadowBlur = 1;
-            canvas.shadowColor = "rgba(0, 0, 0, 0.5)";
+        } else if (status == "jukebox") {
+            magicBowl.hide();
+            fillingArc.show();
 
-            canvas.beginPath();
-            canvas.arc(size / 2, size / 2, size / 2 - 1, angleFin * 0.75, angleFin * 0.751, true);
-            canvas.arc(size / 2, size / 2, size / 2 - 1 - cwidth, angleFin * 0.751, angleFin * 0.75, false);
-            canvas.fill();
+            circleContainer.attr("class", "circle-container");
 
-            var couleur = "200, 200, 200";
+            var ratio = 1 - ((totalTime - currentTime) / totalTime);
 
-            /*if(status == "live")
-             couleur = "150, 0, 0";*/
-
-            for (i = 0; i < balls; i++) {
-                for (j = 1; j < shadows + 1; j++) {
-                    var boulePositionX = Math.cos(angleFin * ((nowsec % 5.0) / 5.0 + (1 / balls) * i) + 0.07 * (j - 1)) * (size / 2 - cwidth / 2 - 1) + size / 2;
-                    var boulePositionY = Math.sin(angleFin * ((nowsec % 5.0) / 5.0 + (1 / balls) * i) + 0.07 * (j - 1)) * (size / 2 - cwidth / 2 - 1) + size / 2;
-
-                    canvas.fillStyle = "rgba(" + couleur + ", " + (j / shadows) + ")";
-                    canvas.strokeStyle = "rgba(" + couleur + ", " + (j / shadows) + ")";
-
-                    canvas.beginPath();
-                    canvas.arc(boulePositionX, boulePositionY, cwidth / 2 - 2, 0, angleFin, true);
-                    canvas.fill();
-                    //canvas.stroke();
-                }
+            function calculatePoint (cx, cy, radius, angle) {
+                return Math.round((cx + Math.sin(angle) * radius) * 100) / 100 + "," + Math.round((cy + Math.cos(angle) * radius) * 100) / 100;
             }
 
-            canvas.shadowOffsetX = canvas.shadowOffsetY = canvas.shadowBlur = 0;
-            canvas.shadowColor = "transparent";
-        } else if (status == "jukebox") {
-            var ratio = (totalTime - currentTime) / totalTime;
-
             if (currentTime >= 13) {
-                // Cercle over
                 if (ratio > 0.75)
-                    canvas.fillStyle = "rgba(115,0,0,1)";
-                else if (ratio > 0.5)
-                    canvas.fillStyle = "rgba(115,115,0,1)";
-                else
-                    canvas.fillStyle = "rgba(0,115,0,1)";
-                canvas.beginPath();
-                canvas.arc(size / 2, size / 2, size / 2 - 3, angleFin * 0.75, angleFin * (0.75 + ratio), true);
-                canvas.arc(size / 2, size / 2, size / 2 - 1 - cwidth + 2, angleFin * (0.75 + ratio), angleFin * 0.75, false);
-                canvas.fill();
+                    fillingArc.css("fill", "rgb(0,115,0)");
+                else if (ratio > 0.5) {
+                    fillingArc.css("fill", "rgb(115,115,0)");
+                } else {
+                    fillingArc.css("fill", "rgb(115,0,0)");
+                }
+
+                var angle = -1.0 * Math.PI + angleFin * (ratio);
+
+                var outerEndPoint = calculatePoint(19, 19, outerSize, angle);
+                var innerEndPoint = calculatePoint(19, 19, innerSize, angle);
+
+                var magicValue = (ratio > 0.5) ? "1,0" : "0,0";
+
+                // x y radius startAngle endAngle anticlockwise
+                var str = "M 19,19 " +
+                          "L 19,3 " + // start point
+                          "A 16,16 0 " + magicValue + " " + outerEndPoint + " " + // outer stop
+                          "Z " + // back to center
+                          "M 19,19 " + // start point
+                          "L 19,10 " +
+                          "A 9,9 0 " + magicValue + " " + innerEndPoint + " " + // inner stop
+                          "Z "; // back to center
+                fillingArc.attr("d", str);
+                fillingArc.data("ratio", ratio);
+
             } else {
                 // Cercle over
-                canvas.fillStyle = "rgba(150,0,0,1)";
+                fillingArc.css("fill", "rgb(115,0,0)");
 
                 var i = 12;
 
+                var str2 = "";
+
                 while (i >= 1) {
                     if (i < currentTime) {
-                        var currAngle = angleFin * (0.75 + (i - 1) * (-1 / 12));
-                        var prevAngle = angleFin * (0.75 + i * (-1 / 12) + 0.015);
-                        canvas.beginPath();
-                        canvas.arc(size / 2, size / 2, size / 2 - 3, prevAngle, currAngle, false);
-                        canvas.arc(size / 2, size / 2, size / 2 - 1 - cwidth + 2, currAngle, prevAngle, true);
-                        canvas.fill();
+                        var currAngle =  -1.0 * Math.PI + angleFin / 12 * (i - 1);
+                        var prevAngle = -1.0 * Math.PI + angleFin / 12 * (i - 0.20);
+                        var magicValue2 = "0,1"; //(i > 6) ? "1,1" : "0,1";
+                        str2 += "M 19,19 " +
+                            "L " + calculatePoint(19, 19, outerSize, prevAngle) + " " + // start point
+                            "A 16,16 0 " + magicValue2 + " " + calculatePoint(19, 19, outerSize, currAngle) + " " + // outer stop
+                            "Z " + // back to center
+                            "M 19,19 " + // start point
+                            "L " + calculatePoint(19, 19, innerSize, prevAngle) + " " +
+                            "A 9,9 0 " + magicValue2 + " " + calculatePoint(19, 19, innerSize, currAngle) + " " + // inner stop
+                            "Z "; // back to center
+                        fillingArc.attr("d", str2);
+                        fillingArc.data("ratio", ratio);
                     }
                     i--;
                 }
+
+                fillingArc.attr("d", str);
+                fillingArc.data("ratio", ratio);
             }
-
-            // Cercle noir
-            canvas.strokeStyle = "rgba(0,0,0,0.2)";
-            canvas.fillStyle = "rgba(0,0,0,0.1)";
-
-            canvas.beginPath();
-            canvas.arc(size / 2, size / 2, size / 2 - 1, angleFin * 0.75, angleFin * 0.751, true);
-            canvas.arc(size / 2, size / 2, size / 2 - 1 - cwidth, angleFin * 0.751, angleFin * 0.75, false);
-            canvas.fill();
-            canvas.stroke();
         }
     };
 
@@ -133,7 +119,7 @@ var WheelIndicator = function () {
 
     var loop = function () {
         tour += 1;
-        if (tour > 2) {
+        if (tour > 5) {
             paint();
             tour = 0;
         }
@@ -143,11 +129,8 @@ var WheelIndicator = function () {
     };
 
     return {
-        initialize: function (element) {
-            if (!($(element)[0].getContext))
-                throw new Error("Hey, le browser ne supporte pas le <canvas> !");
-
-            canvas = $(element)[0].getContext('2d');
+        initialize: function (_element) {
+            element = _element;
         },
         register: function () {
             paint();
