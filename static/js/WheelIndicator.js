@@ -55,9 +55,9 @@ var WheelIndicator = function () {
             }
 
             if (currentTime >= 13) {
-                if (ratio > 0.75)
+                if (currentTime >= 90)
                     fillingArc.css("fill", "rgb(0,115,0)");
-                else if (ratio > 0.5) {
+                else if (currentTime >= 30) {
                     fillingArc.css("fill", "rgb(115,115,0)");
                 } else {
                     fillingArc.css("fill", "rgb(115,0,0)");
