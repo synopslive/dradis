@@ -166,6 +166,7 @@ h2 {
     height: 50px;
     -webkit-transition: all 0.1s ease-in;
     -moz-transition: all 0.1s ease-in;
+    transition: all 0.1s ease-in;
 }
 
 .menumodules li.enfonced {
@@ -367,6 +368,7 @@ button:hover {
     background: #f0f0f0;
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
 }
 
 button i, label i {
@@ -1023,6 +1025,8 @@ strong.timeleftbeforelive {
 
 #currentplaylist {
     -moz-transition: background-color 0.2s;
+    -webkit-transition: background-color 0.2s;
+    transition: background-color 0.2s;
 }
 
 #currentplaylist.dirt {
@@ -1059,19 +1063,28 @@ strong.timeleftbeforelive {
 }
 
 .magic-bowl {
+    -webkit-transform-origin: 19px 19px;
+    transform-origin: 19px 19px;
+
     animation-duration: 5s;
     animation-name: magicrolling;
-    transform-origin: 19px 19px;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+
+    -webkit-animation-duration: 5s;
+    -webkit-animation-name: magicrolling;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
 }
 
 @keyframes magicrolling {
     from {
         transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
     }
 
     to {
         transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
     }
 }
