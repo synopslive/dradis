@@ -1,0 +1,87 @@
+.top-navbar {
+    margin-bottom: 0;
+}
+
+.navbar-collapse {
+    padding-right: 0;
+}
+
+.navbar-brandbutton {
+    font-weight: bold;
+    padding: 0;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.navbar-logo {
+    float: left;
+    margin-top: 13px;
+    margin-left: 15px;
+}
+
+.navbar-element {
+    margin-top: 5px;
+    margin-left: 15px;
+}
+
+.activity-indicator {
+    width: 44px;
+    height: 44px;
+    vertical-align: bottom;
+}
+
+.circle-container {
+    fill-rule: evenodd;
+    fill: #ececec;
+    stroke: #969696;
+}
+
+.circle-container.perm {
+    fill: #6e6e6e;
+    stroke: #6e6e6e;
+}
+
+.circle-container.live {
+    fill: #592426;
+    stroke: #592426;
+}
+
+.filling-arc {
+    fill-rule: evenodd;
+    fill: transparent;
+}
+
+.magic-bowl {
+    -webkit-transform-origin: 19px 19px;
+    transform-origin: 19px 19px;
+
+    animation-duration: 5s;
+    animation-name: magicrolling;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+    -webkit-animation-duration: 5s;
+    -webkit-animation-name: magicrolling;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+
+@keyframes magicrolling {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes magicrolling {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}

@@ -7,7 +7,7 @@ var LibraryManager = function () {
     var nbByPages = 40;
     var curPage = 1;
     var search = "";
-    var rootpath = 'home/synopslive/SLRemoteData/';
+    var rootpath = 'home/synopslive/media/';
 
     var zeroFill = function (number, width) {
         width -= number.toString().length;
@@ -15,15 +15,15 @@ var LibraryManager = function () {
             return new Array(width + (/\./.test(String(number)) ? 2 : 1)).join('0') + number;
         }
         return number;
-    }
+    };
 
     var formatLength = function (length) {
         if (length < 0) return "-0:00";
         return Math.floor(length / 60.0) + ":" + zeroFill(Math.floor(length % 60), 2);
-    }
+    };
 
 
-    var showStackElement = function (media) {
+    var showPlaylistElement = function (media) {
         var cssClasses = 'plelement ';
         var eltaa = "";
         var secondline = "";
@@ -87,7 +87,7 @@ var LibraryManager = function () {
         '</div>';
 
         $(finalCode).appendTo(wrap);
-    }
+    };
 
     var appendPagination = function (myself) {
         var totalpages = Math.ceil(countAll / nbByPages);
@@ -105,7 +105,7 @@ var LibraryManager = function () {
         }
 
         wrap.after(pagination);
-    }
+    };
 
     var refresh = function () {
         wrap.prepend('<div class="refreshing">Actualisation...</div>');
@@ -118,7 +118,7 @@ var LibraryManager = function () {
             if (typeof datarray == 'string' || datarray instanceof String)
                 datarray = JSON.parse(data);
             for (var i = 0; i < datarray.medias.length; i++) {
-                showStackElement(datarray.medias[i]);
+                showPlaylistElement(datarray.medias[i]);
             }
             countAll = datarray.countAll;
             appendPagination(this);
@@ -129,7 +129,7 @@ var LibraryManager = function () {
         from = nbByPages * (nvpage - 1);
         curPage = nvpage;
         refresh();
-    }
+    };
 
     return {
         refresh: refresh,

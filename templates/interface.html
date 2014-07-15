@@ -1,176 +1,39 @@
+{% load compress %}
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Dradis − SynopsLive</title>
     <link rel="shortcut icon" href="/favicon.ico"/>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="./static/css/main.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="./static/css/actions.css"/>
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="/static/js/vendor/jquery-ui-1.10.3.custom.min.js"></script>
-    <script type="text/javascript" src="/static/js/vendor/jquery.ui.touch-punch.min.js"></script>
-    <script type="text/javascript" src="/static/js/WheelIndicator.js"></script>
-    <script type="text/javascript" src="/static/js/LibraryManager.js"></script>
-    <script type="text/javascript" src="/static/js/PlaylistManager.js"></script>
-    <script type="text/javascript" src="/static/js/SydroidConnector.js"></script>
-    <script type="text/javascript" src="/static/js/EffectsTable.js"></script>
-    <script type="text/javascript" src="/static/js/main.js"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    {% compress css %}
+        <link rel="stylesheet" type="text/css" media="screen" href="/static/css/dradis/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/less" media="screen" href="/static/css/dradis/main.less" />
+    {% endcompress %}
 </head>
 <body data-dradis-api-key="{{ dradis_api_key }}">
-    <nav id="topbar">
-        <img id="logohome" src="./static/images/logoSynops.png" alt="" title="Dradis 0.81" />
-        <div id="statusbox">
-            <svg id="notanhorloge" xmlns="http://www.w3.org/2000/svg" style="width: 44px; height: 44px; margin-top: 6px;">
-                <path
-                  d="
-                    M 19, 19
-                    m -18, 0
-                    a 18,18 0 1,0 36,0
-                    a 18,18 0 1,0 -36,0
-
-                    M 19, 19
-                    m -7, 0
-                    a 7,7 0 1,0 14,0
-                    a 7,7 0 1,0 -14,0
-                    "
-                  class="circle-container"
-                />
-                <circle r="3" cx="19" cy="7" style="fill: #cccccc;" class="magic-bowl" />
-                <path
-                    d="
-                    M 19,3
-                    A 15,15 0 0,1 19,35
-                    M 19,28
-                    A 7,7 0 0,0 19,10"
-
-                    class="filling-arc"
-                />
-            </svg>
-            <div id="modesect">
-                <p class="bigtext">&nbsp;</p>
-
-                <p class="littletext">&nbsp;</p>
-            </div>
-        </div>
-        <div id="osdbox">
-            <div id="datetimesect" class="osdsection">
-                <p class="bigtext"></p>
-
-                <p class="littletext"></p>
-            </div>
-            <div id="auditeurssect" class="osdsection">
-                <p class="nbauditeurs bigtext"></p>
-
-                <p class="littletext">auditeurs</p>
-            </div>
-        </div>
-        <div id="nowlisteningbox">
-            <p id="nowartist">&nbsp;</p>
-
-            <p id="nowtitle">&nbsp;</p>
-        </div>
-    </nav>
-    <div id="workspace">
-        <section id="jukebox" class="view">
-            <div class="header">
-                <h4>Jukebox</h4>
-            </div>
-            <div class="tools">
-                <div class="ctlbox" id="ctl-permanent">
-                    <div class="hbar">
-                        <button class="startshownow bigbutton" data-do-cmd="switch to show">
-                            <i class="icon-rocket"></i>Démarrer
-                        </button>
-                    </div>
-                </div>
-                <div class="ctlbox" id="ctl-jukebox">
-                    <div class="hbar">
-                        <button class="skipcurrentnow" data-do-cmd="skip current">
-                            <i class="icon-fast-forward"></i>Sauter
-                        </button>
-                        <button class="switchbed">
-                            Fond au retour <img src="./static/images/itson.png" alt=""/>
-                        </button>
-                    </div>
-                </div>
-                <div class="ctlbox" id="ctl-live">
-                    <button class="switchbed">
-                        Fond <img src="./static/images/itson.png" alt=""/>
-                    </button>
-                    <button class="startjukebox bigbutton" data-do-cmd="start jukebox">
-                        <i class="icon-bar-chart"></i>Lancer l'intro
-                    </button>
-                    <button class="stoplivenow bigbutton" data-do-cmd="start jukebox and live off">
-                        <i class="icon-step-forward"></i>Terminer le live
-                    </button>
-                </div>
-                <div class="ctlbox" id="ctl-intro">
-                    <button class="switchbed">
-                        Fond <img src="./static/images/itson.png" alt=""/>
-                    </button>
-                    <button class="stoplivenow bigbutton" data-do-cmd="live off">
-                        <i class="icon-step-forward"></i>Terminer le live
-                    </button>
-                </div>
-            </div>
-            <div class="content">
-            </div>
-            <div class="footer">
-                <div id="addactions" class="dostyle">
-                    <label><i class="icon-plus"></i>Ajouter</label>
-                    <button data-do-cmd="push a:1 to stack">Un live</button>
-                    <button data-do-cmd="push a:2 to stack">Une fin d'émission</button>
-                </div>
-            </div>
-        </section>
-        <section id="secondaryview" class="view medias">
-            <div class="header">
-                <h4>Bibliothèque</h4>
-            </div>
-            <div class="tools">
-                <div class="tri dostyle" style="margin-top: 0.4em;">
-                    <label id="for"><i class="icon-filter"></i>Trier par</label>
-                    <select id="tri" name="tri">
-                        <option value="">Date d'ajout</option>
-                        <option value="title">Titre</option>
-                        <option value="artist">Artiste</option>
-                        <option value="album">Album</option>
-                        <option value="length">Durée</option>
-                        <option value="path" selected="selected">Chemin</option>
-                    </select>
-                </div>
-                <div id="searchzone" class="dostyle">
-                    <label for="searchinput"><i class="icon-search"></i></label>
-                    <input id="searchinput" type="search" placeholder="Rechercher..."/>
-                </div>
-            </div>
-            <div class="content">
-            </div>
-            <div class="footer">
-                <button class="open-table-effects"><i class="icon-wrench"></i>Table d'effets</button>
-                <div id="debugzone" class="dostyle" style="display: inline-block; padding-left: 0; line-height: 22px;">
-                    -
-                    <label for="testinput"><i class="icon-cogs"></i>Debug :</label>
-                    <input id="testinput" placeholder="Taper une commande ici"/>
-                </div>
-                <div class="dostyle" style="float: right; line-height: 25px; margin-top: 2px;">
-                    Connecté en tant que <b>{{ user.profile.pseudo }}</b> (<a href="/logout">logout</a>)
-                </div>
-            </div>
-        </section>
-        <section class="view effects-table">
-            <div class="header">
-                <h4>Table d'effets</h4>
-            </div>
-            <div class="content">
-            </div>
-            <div class="footer">
-                <div class="dostyle">
-                    <button class="open-medias">Retour</button>
-                </div>
-            </div>
-        </section>
-    </div>
+<script type="text/x-handlebars">
+    {% include "handlebars/interface.hbs" %}
+</script>
+<script type="text/x-handlebars" data-template-name="studio">
+    {% include "handlebars/studio.hbs" %}
+</script>
+<script type="text/x-handlebars" data-template-name="components/media-element">
+    {% include "handlebars/components/media-element.hbs" %}
+</script>
+<script type="text/x-handlebars" data-template-name="status-bar">
+    {% include "handlebars/status-bar.hbs" %}
+</script>
+<script type="text/x-handlebars" data-template-name="components/play-list">
+    {% include "handlebars/components/play-list.hbs" %}
+</script>
+<script src="/static/js/libs/jquery-1.10.2.js"></script>
+<script src="/static/js/libs/handlebars-1.1.2.js"></script>
+<script src="/static/js/libs/ember-1.3.1.js"></script>
+<script src="/static/js/libs/ember-data.js"></script>
+<script src="/static/js/libs/tastypie_serializer.js"></script>
+<script src="/static/js/libs/tastypie_adapter.js"></script>
+<script src="/static/js/app.js"></script>
+<script src="/static/js/libs/bootstrap.min.js"></script>
 </body>
 </html>

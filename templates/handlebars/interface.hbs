@@ -1,0 +1,11 @@
+{% verbatim %}
+    {{ render "status-bar" }}
+    <div class="workspace">
+        <div class="playlist left-container">
+            {{ outlet left }}
+        </div>
+        <div class="row" style="position: relative;">
+            {{ outlet main }}
+        </div>
+    </div>
+{% endverbatim %}

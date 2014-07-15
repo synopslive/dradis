@@ -101,11 +101,9 @@ var SydroidConnector = function (api_key) {
 
     return {
         init: function () {
-            var wsaddress = "ws://sycomet.synopslive.net/sydroid";
+            var wsaddress = "ws://dradis.deux.synopslive.net/sydroid/";
 
-            if (window.MozWebSocket) {
-                lws = new MozWebSocket(wsaddress);
-            } else {
+            if (window.WebSocket) {
                 lws = new WebSocket(wsaddress);
             }
 
@@ -119,16 +117,21 @@ var SydroidConnector = function (api_key) {
 
             lws.onmessage = function (e) {
                 // e.data contains received string.
+                if (window.SY_DEBUG === true) {
+                    console.log(e.data);
+                }
                 var parsed = JSON.parse(String(e.data));
+                
                 traiteMsg(parsed);
                 window.currentSydroidStatus = parsed;
             };
 
-            lws.onclose = function () {
+            lws.onclose = function (e) {
+                console.log("Connection fermée", e.code, e.reason);
                 $("#ind-comet").addClass('ind-disconnected').removeClass('ind-connected').find("a").html("Déconnecté");
             };
 
-            lws.onerror = function () {
+            lws.onerror = function (e) {
                 console.error("Une erreur Websocket s'est produite.");
             };
         },

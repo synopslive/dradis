@@ -16,30 +16,30 @@ var PlaylistManager = function (sc) {
     };
 
 
-    var showStackElement = function (stackElement) {
+    var showPlaylistElement = function (element) {
         var cssClasses = 'plelement ';
         var mainLine = "";
         var secondLine = "";
         var elinfos = "";
         var actions = "";
 
-        if (stackElement.status == "ready") {
-            actions += '<button data-do-cmd="remove ' + stackElement.id + ' from stack" class="removefromstack" title="Supprimer"></button>';
+        if (element.status == "ready") {
+            actions += '<button data-do-cmd="remove ' + element.id + ' from stack" class="removefromstack" title="Supprimer"></button>';
         }
 
-        if (stackElement.isAction) {
+        if (element.isAction) {
             cssClasses += "elisaction ";
-            cssClasses += "elis-" + stackElement.action.command.replace(/ /g, "-") + " ";
+            cssClasses += "elis-" + element.action.command.replace(/ /g, "-") + " ";
 
-            if (stackElement.action.command == "switch to perm")
+            if (element.action.command == "switch to perm")
                 mainLine = "Fin de l'émission";
-            else if (stackElement.action.command == "live on")
+            else if (element.action.command == "live on")
                 mainLine = "Retour à l'antenne";
 
             mainLine = '<span class="eltitle">' + mainLine + '</span>';
         } else {
-            if (!(stackElement.media)) {
-                stackElement.media = {
+            if (!(element.media)) {
+                element.media = {
                     path: '/home/signez/THIS-IS-A-FAKE.mp3',
                     title: 'MEDIA FANTÔME',
                     artist: 'SUPPRIMEZ-MOI',
@@ -47,45 +47,45 @@ var PlaylistManager = function (sc) {
                 };
             }
 
-            if (stackElement.media.path.search(/Jingle/i) != -1)
+            if (element.media.path.search(/Jingle/i) != -1)
                 cssClasses += "elisjingle ";
-            else if (stackElement.media.path.search(/Sagas\//i) != -1)
+            else if (element.media.path.search(/Sagas\//i) != -1)
                 cssClasses += "elissaga-mp3 ";
             else
                 cssClasses += "elismusique ";
 
-            if(stackElement.media.path.search(/\/Musiques\//) != -1)
+            if(element.media.path.search(/\/Musiques\//) != -1)
                 cssClasses += "elisperm ";
 
-            if (stackElement.media.title && stackElement.media.artist) {
-                mainLine += '<span class="eltitle">' + stackElement.media.title + '</span>';
-                mainLine += ' de <span class="elartist">' + stackElement.media.artist + '</span>';
+            if (element.media.title && element.media.artist) {
+                mainLine += '<span class="eltitle">' + element.media.title + '</span>';
+                mainLine += ' de <span class="elartist">' + element.media.artist + '</span>';
             } else {
-                mainLine += '<span class="elfilename">' + stackElement.media.filename + '</span>';
+                mainLine += '<span class="elfilename">' + element.media.filename + '</span>';
             }
 
-            if (stackElement.media.album)
-                secondLine += "(tiré de <em>" + stackElement.media.album + "</em>)";
+            if (element.media.album)
+                secondLine += "(tiré de <em>" + element.media.album + "</em>)";
             else {
-                var pathsplitted = stackElement.media.path.split("/");
+                var pathsplitted = element.media.path.split("/");
                 pathsplitted.pop();
                 secondLine += "situé dans <em>" + pathsplitted.join("/").replace(rootpath, '');
             }
 
-            elinfos += '<span class="ellength">' + formatLength(stackElement.media.length) + '</span>';
+            elinfos += '<span class="ellength">' + formatLength(element.media.length) + '</span>';
         }
 
-        mainLine += " <small class=\"debuginfo\">" + stackElement.id + " @ " + stackElement.position +  " </small>";
+        mainLine += " <small class=\"debuginfo\">" + element.id + " @ " + element.position +  " </small>";
 
-        if (stackElement.status == "done")
+        if (element.status == "done")
             cssClasses += "elstisdone ";
-        else if (stackElement.status == "playing")
+        else if (element.status == "playing")
             cssClasses += "elstisplaying ";
-        else if (stackElement.status == "loaded")
+        else if (element.status == "loaded")
             cssClasses += "elstisloaded ";
 
-        var finalCode = '<div class="' + cssClasses + '" data-playlist-element-id="' + stackElement.id +
-                        '" data-pos="' + stackElement.position + '">' +
+        var finalCode = '<div class="' + cssClasses + '" data-playlist-element-id="' + element.id +
+                        '" data-pos="' + element.position + '">' +
             '<div class="handle"></div>' +
             (elinfos ? ('<p class="w-elinfos">' + elinfos + '</p>') : '') +
             '<p class="w-eltaa">' + mainLine + '</p>' +
@@ -111,7 +111,7 @@ var PlaylistManager = function (sc) {
                 if (typeof datarray == 'string' || datarray instanceof String)
                     datarray = JSON.parse(data);
                 for (var i = 0; i < datarray.stackElements.length; i++) {
-                    showStackElement(datarray.stackElements[i]);
+                    showPlaylistElement(datarray.stackElements[i]);
                 }
                 wrap.sortable("enable");
                 wrap.sortable("refresh");

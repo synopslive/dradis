@@ -1,0 +1,61 @@
+.media-element {
+  margin: 0;
+  list-style: none;
+
+  dl.media-line {
+    margin: 0;
+    padding: 4px 5px 0 8px;
+
+    dd {
+      display: inline-block;
+      width: 35%;
+      max-width: 250px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-right: 20px;
+    }
+
+    .title {
+      font-weight: bold;
+    }
+
+    .artist {
+      font-style: italic;
+    }
+
+    .filename {
+      color: #999999;
+    }
+  }
+
+  .media-element-pane {
+    background-color: #F5F5F5;
+    padding: 15px 5px 15px 8px;
+
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05) inset;
+  }
+}
+
+.media-info {
+  .media-cover {
+    float: left;
+  }
+  dl {
+    margin-left: 10px;
+    float: left;
+
+    dt {
+      clear: left;
+      float: left;
+      width: 120px;
+    }
+    dd {
+      float: left;
+    }
+  }
+}
+
+.media-element ~ .media-element {
+  border-top: 1px solid #e5e5e5;
+}

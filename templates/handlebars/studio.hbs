@@ -1,0 +1,76 @@
+{% verbatim %}
+<div class="navbar navbar-default navbar-static-top">
+    <ul class="nav navbar-nav navbar-left">
+        <li class="active"><a href="#"><i class="fa fa-fw fa-book"></i> Bibliothèque</a></li>
+        <li class="disabled"><a href="#"><i class="fa fa-fw fa-list-alt"></i> Playlists</a></li>
+        <li class="disabled"><a href="#"><i class="fa fa-fw fa-code"></i> Console</a></li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+        <!-- <li><a href="#">Link</a></li> -->
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+               data-toggle="dropdown">
+                <i class="fa fa-fw fa-sort-amount-asc"></i> Ordre de tri <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="disabled">
+                    <a href="#">
+                        <i class="fa fa-fw fa-user"></i>
+                        Artiste
+                    </a>
+                </li>
+                <li class="disabled">
+                    <a href="#">
+                        <i class="fa fa-fw fa-music"></i>
+                        Titre
+                    </a>
+                </li>
+                <li class="disabled">
+                    <a href="#">
+                        <i class="fa fa-fw fa-dot-circle-o"></i>
+                        Album
+                    </a>
+                </li>
+                <li class="divider"></li>
+
+                <li class="disabled">
+                    <a href="#">
+                        <i class="fa fa-fw fa-clock-o"></i>
+                        Durée
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle"
+               data-toggle="dropdown">
+                <i class="fa fa-fw fa-cog"></i> Outils <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="#" {{action "refresh"}}>
+                        <i class="fa fa-fw fa-refresh"></i>
+                        Reconstruire la bibliothèque
+                    </a>
+                </li>
+                <!--<li class="divider"></li>-->
+                <!--<li><a href="#">Separated link</a></li>-->
+            </ul>
+        </li>
+    </ul>
+
+    <form class="navbar-form navbar-right">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Titre, album, artiste...">
+      </div>
+    </form>
+</div>
+<div style="position: absolute; height: calc(100% - 50px); width: 100%; overflow-y: scroll; margin-top: -20px;">
+    <ul class="library">
+        {{#each content}}
+            {{media-element contentBinding="this"}}
+        {{/each}}
+    </ul>
+</div>
+{% endverbatim %}

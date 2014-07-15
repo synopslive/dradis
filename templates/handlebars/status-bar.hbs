@@ -1,0 +1,58 @@
+{% verbatim %}
+    <nav class="top-navbar navbar navbar-default navbar-fixed-top">
+        <div class="navbar-header">
+            <a class="navbar-brandbutton dropdown-toggle" href="#" data-toggle="dropdown">
+                <span class="navbar-logo">
+                    <img src="/static/images/synopslive_logo.svg" style="height: 23px;" />
+                </span>
+                <span class="navbar-text">
+                    Studio A
+                    <b class="caret"></b>
+                </span>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="navbar-element">
+                    <svg class="activity-indicator" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="
+                            M 19, 19
+                            m -18, 0
+                            a 18,18 0 1,0 36,0
+                            a 18,18 0 1,0 -36,0
+
+                            M 19, 19
+                            m -7, 0
+                            a 7,7 0 1,0 14,0
+                            a 7,7 0 1,0 -14,0
+                            "
+                          class="circle-container"></path>
+                        <circle r="3" cx="19" cy="7" style="fill: #cccccc;" class="magic-bowl"></circle>
+                        <path
+                            d="
+                            M 19,3
+                            A 15,15 0 0,1 19,35
+                            M 19,28
+                            A 7,7 0 0,0 19,10"
+
+                            class="filling-arc"></path>
+                    </svg>
+                </li>
+            </ul>
+            <p class="navbar-text">Flux permanent</p>
+
+            <ul class="nav navbar-nav pull-right">
+                <li>
+                    <a href="#">
+                        <i class="fa fa-fw fa-bolt"></i> À l'antenne :
+                        <strong>{{ status.liveMetadata.artist }}</strong> −
+                        <em>{{ status.liveMetadata.title }}</em>
+                    </a>
+                </li>
+                <li><a href="#">{{ status.listeners }} auditeurs</a></li>
+                <li><a href="#">{{ status.humanTime }}</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endverbatim %}

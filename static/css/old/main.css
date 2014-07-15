@@ -17,7 +17,7 @@ body {
 #topbar {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.6);
     height: 50px;
-    background: #EFEFEF url(../images/topbar.png);
+    background: #EFEFEF url(/static/images/topbar.png);
     width: 100%;
     z-index: 3;
     position: relative;

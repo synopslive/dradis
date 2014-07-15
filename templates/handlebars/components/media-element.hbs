@@ -1,0 +1,48 @@
+{% verbatim %}
+{{#with content}}
+    <dl class="media-line" {{ bind-attr data-media-id="id" }}>
+        <dd class="title">{{title}}</dd>
+        <dd class="artist">{{artist}}</dd>
+        <dd class="album">{{album}}</dd>
+    </dl>
+    <div class="media-element-pane container-fluid" {{ bind-attr data-media-id="id" }}>
+
+        <div class="media-info clearfix">
+            <img src="http://placehold.it/100x100" alt="" class="img-thumbnail media-cover">
+            <dl>
+                <dt>Titre</dt>
+                <dd>{{title}}</dd>
+                <dt>Artiste</dt>
+                <dd>{{artist}}</dd>
+                <dt>Album</dt>
+                <dd>{{album}}</dd>
+                <dt>Durée</dt>
+                <dd>??:??</dd>
+                <dt>Nom du fichier</dt>
+                <dd>{{filename}}</dd>
+            </dl>
+
+        </div>
+
+        <hr class="clearfix" />
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary">
+                <i class="fa fa-fw fa-plus-square"></i> Ajouter
+            </button>
+            <button type="button" class="btn btn-primary dropdown-toggle"
+                    data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Plus...</span>
+            </button>
+
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#"><i class="fa fa-fw fa-arrow-circle-up"></i> Ajouter au début</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-arrow-circle-down"></i> Ajouter à la fin</a></li>
+                <li class="divider"></li>
+                <li><a href="#"><i class="fa fa-fw fa-hand-o-up"></i> À propos du glisser déposer...</a></li>
+            </ul>
+        </div>
+    </div>
+{{/with}}
+{% endverbatim %}
